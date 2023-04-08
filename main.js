@@ -1,5 +1,17 @@
 var express = require('express');
 var server = express();
+server.use(express.json());
+server.use(express.urlencoded({extended:true}));
+
+const bdd = require('./bdd');
+async function run(){
+    await bdd.connect();
+
+    await bdd.disconnect();
+}
+
+run();
+
 
 // set the view engine to ejs
 server.set('view engine', 'ejs');

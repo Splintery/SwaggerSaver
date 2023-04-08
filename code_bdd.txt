@@ -1,0 +1,7 @@
+drop table if exists vetements;
+
+CREATE TABLE vetements (
+nom VARCHAR(100) PRIMARY KEY,
+prix DECIMAL(10, 2),
+type_vetement VARCHAR(50)
+);
