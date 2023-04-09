@@ -1,11 +1,18 @@
 function bdd(){
 
     const pg = require('pg');
+    // const pool = new pg.Pool({
+    //     user: 'francois',
+    //     host: 'localhost',
+    //     database: 'bdd',
+    //     password: '12345',
+    //     port: 5432
+    // });
     const pool = new pg.Pool({
-        user: 'francois',
+        user: 'postgres',
         host: 'localhost',
         database: 'bdd',
-        password: '12345',
+        password: '1234',
         port: 5432
     });
 

@@ -2,12 +2,22 @@ var express = require('express');
 var server = express();
 server.use(express.json());
 server.use(express.urlencoded({extended:true}));
+server.use('/public', express.static('public'));
 
 const bdd = require('./bdd');
 async function run(){
     await bdd.connect();
 
     await bdd.disconnect();
+    var $ = require('jquery');
+    $(document).ready(function() {
+        let navigation = document.querySelector('.navigation');
+        document.querySelector('.toggle').onclick = function (){
+            this.classList.toggle('active');
+            navigation.classList.toggle('active');
+        }
+    });
+    
 }
 
 run();
@@ -29,4 +39,4 @@ server.get('/test', (req, res, next) => {
 
 
 server.listen(8080);
-console.log('http://localhost:8080/');
+console.log('http://localhost:8080/test');
