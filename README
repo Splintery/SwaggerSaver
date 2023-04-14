@@ -1,7 +1,7 @@
 Pour la base de donnée :
 - ouvrir postgres avec la commande "psql -U votre_nom -d postgres"
 - créer une base de donnée "bdd" avec la commande "CREATE DATABASE bdd;" et y entrer "\c bdd"
-- copier le contenu de code_bdd.txt dedans
+- créer les tables "\i code_bdd.sql"
 
 Pour la connexion avec la bdd il faudra :
 - modifier l'user et le mot de passe avec le votre dans le fichier "bdd.js"
