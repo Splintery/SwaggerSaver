@@ -42,8 +42,8 @@ function bdd(){
     this.categorie = async function(nom){
         try{
             const result = await client.query('SELECT * FROM vetements WHERE type_vetement=$1', [nom]);
-            return result.rows;
-            //return result.rows.map(row => row);
+            //return result.rows;
+            return result.rows.map(row => row);
 
         } catch(error){
             console.error('Error while searching for categorie:', error);
@@ -102,6 +102,16 @@ function bdd(){
         } catch (error) {
             console.error('Erreur lors de l\'insertion du vetement :', error);
             return false;
+        }
+    }
+
+    this.stock = async function(){
+        try {
+            const result = await client.query('SELECT COUNT (*) FROM vetements');
+            return parseInt(result.rows[0].count);
+        } catch (error) {
+            console.error('Erreur lors de la requête de comptage :', error);
+            throw error;
         }
     }
     

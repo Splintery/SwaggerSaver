@@ -7,8 +7,14 @@ server.use('/public', express.static('public'));
 const bdd = require('./bdd');
 async function run(){
     await bdd.connect();
+    
+    var test = await bdd.stock();
+    console.log("vetements disponible: " + test);
 
-    await bdd.disconnect();
+    var test2 = await bdd.categorie("Chemise");
+    console.log(test2[0].nom);
+    
+    //await bdd.disconnect();
 }
 
 run();
@@ -38,6 +44,17 @@ server.use((req, res, next) => {
 server.get('/test', (req, res, next) => {
     console.log("viewing page !");
     res.render('pages/index', {categories : categories});
+});
+
+server.get('/body/:vetement', async (req, res) =>{
+    const vet = req.params.vetement;
+    if(categories.includes(vet)){
+        const items = await bdd.categorie(vet);
+        console.log(items[0]);
+        res.render('pages/index', {categories : categories, type_vet : vet, items : items});
+    }else{
+        console.log("body de " + vet + " existe pas");
+    }
 });
 
 
