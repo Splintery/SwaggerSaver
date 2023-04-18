@@ -1,0 +1,156 @@
+header {
+  background-color: rgba(255, 255, 255, 0.2); ;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 15vh;
+    box-sizing: border-box;
+    position: fixed;
+    display: flex;
+    z-index: 100;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1{
+  text-align: center;
+}
+
+.navigation {
+  /* position: fixed; */
+  top: 5.5vh;
+  height: 20px;
+  width: 20vw;
+  z-index: 100;
+}
+
+.toggle{
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  /* background-color: aliceblue; */
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #ff216d;
+  padding: 5px 20px;
+}
+
+.toggle::before{
+  content: 'Catégorie';
+  margin-left: 10px;
+}
+
+.toggle.active::before{
+  content: 'Fermer';
+
+}
+
+.toggle span{
+  position: relative;
+  width: 20px;
+  height: 50px;
+}
+
+.toggle span::before{
+  content: '';
+  position:absolute;
+  top:20px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #ff216d;
+  transition: 0.5s;
+}
+
+.toggle span::after{
+  content: '';
+  position:absolute;
+  bottom:20px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #ff216d;
+  transition: 0.5s;
+}
+
+.toggle.active span::before{
+  transform: rotate(225deg);
+  top: 24px;
+}
+
+.toggle.active span::after{
+  transform: rotate(135deg);
+  bottom: 24px;
+}
+
+ul{
+  position: relative;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+}
+
+ul li{
+  position: relative;
+  list-style: none;
+  transition: 0.5s;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(250px);
+  transition-delay: calc(0.1s * var(--i));
+}
+
+.navigation.active ul li{
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+ul li a{
+  position: relative;
+  text-decoration: none;
+  display: block;
+  padding: 10px 20px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  /* background: #fff; */
+  color: #333;
+  transition: 0.5s;
+}
+
+ul li a:hover{
+  /* background: #f6f6f6; */
+  background: rgba(255, 255, 255, 0.5);;
+  color: #ff216d;
+  transition: 0s;
+}
+
+body{
+  margin-top: 15vh;
+  background: linear-gradient(45deg,blue, pink);;
+  min-height: 100vh;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a img {
+  border: 1px solid #ccc;
+}
+
+a:hover img {
+  border: 1px solid #000;
+}
+
+#panier, #utilisateur{
+  border-radius: 50%;
+  height: 12vh;
+  width: 12vh;
+}

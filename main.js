@@ -9,19 +9,19 @@ async function run(){
     await bdd.connect();
 
     await bdd.disconnect();
-    var $ = require('jquery');
-    $(document).ready(function() {
-        let navigation = document.querySelector('.navigation');
-        document.querySelector('.toggle').onclick = function (){
-            this.classList.toggle('active');
-            navigation.classList.toggle('active');
-        }
-    });
-    
 }
 
 run();
 
+let categories = [
+    "Chemise",
+    "Veste",
+    "Tshirt",
+    "Sweat",
+    "Jeans",
+    "Joggings",
+    "Accessoires"
+];
 
 // set the view engine to ejs
 server.set('view engine', 'ejs');
@@ -31,10 +31,13 @@ server.use((req, res, next) => {
     console.log("requête reçue à "+time.toString());
     next();
 });
+
+
+
 // use res.render to load up an ejs view file
 server.get('/test', (req, res, next) => {
     console.log("viewing page !");
-    res.render('pages/index');
+    res.render('pages/index', {categories : categories});
 });
 
 

@@ -1,20 +1,52 @@
-<div class="navigation">
-    <div class="toggle"><span></span></div>
-    <ul>
-        <li style="--i:0;"><a href="#">Chemise</a></li>
-        <li style="--i:1;"><a href="#">Veste</a></li>
-        <li style="--i:2;"><a href="#">Tshirt</a></li>
-        <li style="--i:3;"><a href="#">Sweat</a></li>
-        <li style="--i:4;"><a href="#">Jeans</a></li>
-        <li style="--i:5;"><a href="#">Joggings</a></li>
-        <li style="--i:6;"><a href="#">Accesoires</a></li>
+<nav>
+    <div class="list-button-container">
+        <button id="list-button">
+            #
+        </button>
+    </div>
+    <div class="list-container" id="categories">
+        <div class="close-list-container">
+            <button id="close-list-button">X</button>
+        </div>
+        <ul >
+            <%
+                for (var i = 0; i < categories.length; i++) {
+                %>
+                    <li id="li<%=i%>">
+                        <a href="#"><%=categories[i]%></a>
+                    </li>
+                <% 
+                }
+            %>
         </ul>
-    <script src="header.js"></script>
-</div>
-<h1>Titre</h1>
-<a href="#">
-    <!-- <img src="images/utilisateur.jpg" id="utilisateur"> -->
-</a>
-<a href="#">
-    <!-- <img src="images/panier.jpg" id="panier"> -->
-</a>
+    </div>
+    <div class="title-container">
+        <h1>Titre</h1>
+    </div>
+    <div class="customer-account-container">
+        <a href="#">
+            <!-- <img src="images/utilisateur.jpg" id="utilisateur"> -->
+        </a>
+    </div>
+    <div class="basket-container">
+        <a href="#">
+            <!-- <img src="images/panier.jpg" id="panier"> -->
+        </a>
+    </div>
+    
+    <script>
+        var button = document.getElementById("list-button");
+        var list = document.getElementById("categories");
+        var displayed = false;
+        button.addEventListener("mousedown", function() {
+            if (displayed) {
+                displayed = false;
+                list.style.display = "none";
+            } else {
+                displayed = true;
+                list.style.display = "flex";
+            }
+        });
+    </script>
+
+</nav>
