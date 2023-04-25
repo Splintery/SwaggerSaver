@@ -5,29 +5,22 @@ server.use(express.urlencoded({extended:true}));
 server.use('/public', express.static('public'));
 
 const bdd = require('./bdd');
+let categories = [];
 async function run(){
     await bdd.connect();
     
-    var test = await bdd.stock();
-    console.log("vetements disponible: " + test);
+    // var test = await bdd.stock();
+    // console.log("vetements disponible: " + test);
 
-    var test2 = await bdd.categorie("Chemise");
-    console.log(test2[0].nom);
+    // var test2 = await bdd.categorie("Chemise");
+    // console.log(test2[0].nom);
     
-    //await bdd.disconnect();
+    categories = await bdd.list_categories();
+    // await bdd.disconnect();
 }
 
 run();
 
-let categories = [
-    "Chemise",
-    "Veste",
-    "Tshirt",
-    "Sweat",
-    "Jeans",
-    "Joggings",
-    "Accessoires"
-];
 
 // set the view engine to ejs
 server.set('view engine', 'ejs');

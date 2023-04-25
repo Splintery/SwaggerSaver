@@ -39,6 +39,17 @@ function bdd(){
           }
     };
 
+    this.list_categories = async function() {
+        try {
+            const result = await client.query('SELECT cat FROM categorie');
+            return result.rows;
+            
+        } catch (error) {
+            console.log('Error while requesting list-categories:', error);
+            return [];
+        }
+    }
+
     this.categorie = async function(nom){
         try{
             const result = await client.query('SELECT * FROM vetements WHERE type_vetement=$1', [nom]);

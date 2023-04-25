@@ -13,7 +13,7 @@
                 for (var i = 0; i < categories.length; i++) {
                 %>
                     <li id="li<%=i%>">
-                        <a href="#"><%=categories[i]%></a>
+                        <a href="#"><%=categories[i].cat%></a>
                     </li>
                 <% 
                 }
@@ -21,7 +21,7 @@
         </ul>
     </div>
     <div class="title-container">
-        <h1>Titre</h1>
+        <h1>Swagger Saver</h1>
     </div>
     <div class="customer-account-container">
         <a href="#">
@@ -35,17 +35,14 @@
     </div>
     
     <script>
-        var button = document.getElementById("list-button");
         var list = document.getElementById("categories");
-        var displayed = false;
-        button.addEventListener("mousedown", function() {
-            if (displayed) {
-                displayed = false;
-                list.style.display = "none";
-            } else {
-                displayed = true;
-                list.style.display = "flex";
-            }
+        document.getElementById("list-button").addEventListener("mousedown",
+        function() {
+            list.style.left = "0px";
+        });
+        document.getElementById("close-list-button").addEventListener("mousedown",
+        function() {
+            list.style.left = "-25%";
         });
     </script>
 
