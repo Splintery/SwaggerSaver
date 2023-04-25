@@ -42,7 +42,7 @@ function bdd(){
     this.list_categories = async function() {
         try {
             const result = await client.query('SELECT cat FROM categorie');
-            return result.rows;
+            return result.rows.map(row => row.cat);
             
         } catch (error) {
             console.log('Error while requesting list-categories:', error);
