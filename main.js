@@ -34,17 +34,43 @@ server.use((req, res, next) => {
 
 
 // use res.render to load up an ejs view file
-server.get('/test', (req, res, next) => {
+server.get('/swagger', (req, res, next) => {
     console.log("viewing page !");
-    res.render('pages/index', {categories : categories});
+    res.render('pages/acceuil', {categories : categories});
 });
 
-server.get('/body/:vetement', async (req, res) =>{
+// un fichier qui pourrait remplacer les index1 , index2 ect mais a voir si on a le temps
+/*
+server.get('/swagger/:page/:info', async (req, res, next) => {
+    res.render('pages/index', {categories : categories, page : 0});
+    const p = req.params.page;
+    const i = req.params.info;
+    if(p !== undefined){
+
+        if(i !== undefined){
+
+            // aller dans la page des vetements
+            if(p === 'body' ){
+                if(categories.includes(i)){
+                    const items = await bdd.categorie(i);
+                    res.render('pages/index', {categories : categories, type_vet : i, items : items, page : 1});
+                }else{
+                    console.log("body de " + vet + " existe pas");
+                }
+            }
+
+        }
+
+    }
+});
+*/
+
+
+server.get('/swagger/body/:vetement', async (req, res) =>{
     const vet = req.params.vetement;
     if(categories.includes(vet)){
         const items = await bdd.categorie(vet);
-        console.log(items[0]);
-        res.render('pages/index', {categories : categories, type_vet : vet, items : items});
+        res.render('pages/vetement', {categories : categories, type_vet : vet, items : items});
     }else{
         console.log("body de " + vet + " existe pas");
     }
@@ -52,4 +78,4 @@ server.get('/body/:vetement', async (req, res) =>{
 
 
 server.listen(8080);
-console.log('http://localhost:8080/test');
+console.log('http://localhost:8080/acceuil');
