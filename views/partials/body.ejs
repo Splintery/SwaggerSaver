@@ -1,20 +1,42 @@
 <style type="text/css">
+    
+    .corps{
+        margin-top: 100px;
+    }
+
+    .corps h1{
+        text-align: center;
+        color: yellow;
+        font-size: 30mm;
+    }
+
     /* Styles pour la grille */
     .grid {
         display: grid;
         grid-template-columns: repeat(5, 1fr); /* 5 colonnes de largeur égale */
         grid-gap: 10px; /* Espacement entre les cellules de la grille */
+        /*border: 1px solid black; /* Ajoute une bordure à la grille */
+        padding: 20px;
     }
     
+    /* Styles pour les éléments de la grille */
     .grid-item {
-        /* Styles pour les éléments de la grille */
         /* Vous pouvez personnaliser ces styles en fonction de vos besoins */
-        background-color: lightgray;
+        background-color: rgba(255, 255, 255, 0.4);
         padding: 20px;
         text-align: center;
+        border: 1px solid black; /* Ajoute une bordure à la grille */
     }
+
+    .grid-item img {
+        width: 200px;
+        height: 250px;
+        object-fit: cover; /* Ajuste l'image pour qu'elle couvre le conteneur tout en conservant le rapport hauteur / largeur */
+    }    
+
 </style>
-    
+
+<div class="corps">
 <h1><%= type_vet %></h1>
 <div class="grid">
     <% const vetements = items; %>
@@ -28,10 +50,11 @@
             <% var index = j * numItemsPerRow + i; %>
             <% if (index < vetements.length) { %>
             <div class="grid-item">
-                <img src="/public/img_vetements/chemise_carreaux_rouges.jpg">
+                <img src="/public<%= vetements[index].chemin %>">
                 <div>Nom : <%= vetements[index].nom %></div>
                 <div>Taille : <%= vetements[index].taille %></div>
                 <div>Prix : <%= vetements[index].prix %> €</div>
+                <button onclick="bdd.addP(<%= vetements[index].id %>)">Ajouter</button>
             </div>
             <% } %>
         <% } %>
@@ -40,4 +63,5 @@
     <% } %>
 </div>
 
+</div>
 </div>

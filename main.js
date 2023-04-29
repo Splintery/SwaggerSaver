@@ -16,6 +16,7 @@ async function run(){
     // console.log(test2[0].nom);
     
     categories = await bdd.list_categories();
+    await bdd.clear();
     // await bdd.disconnect();
 }
 
@@ -70,7 +71,7 @@ server.get('/swagger/body/:vetement', async (req, res) =>{
     const vet = req.params.vetement;
     if(categories.includes(vet)){
         const items = await bdd.categorie(vet);
-        res.render('pages/vetement', {categories : categories, type_vet : vet, items : items});
+        res.render('pages/vetement', {categories : categories, type_vet : vet, items : items, bdd : bdd});
     }else{
         console.log("body de " + vet + " existe pas");
     }

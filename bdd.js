@@ -125,6 +125,41 @@ function bdd(){
             throw error;
         }
     }
+
+    this.clear = async function(){
+        await client.query('TRUNCATE TABLE panier');
+    }
+
+    this.addP = async function(id){
+        try{
+            const result = await client.query('INSERT INTO panier (vetements_id) VALUES ($1)',[id]);
+            console.log('item added');
+            return true;
+        } catch(error){
+            console.error('Error while add item:',error);
+            return false;
+        }
+    }
+
+    this.remP = async function(id){
+        try{
+            const result = await client.query('DELETE FROM panier WHERE id_vetement = $1',[id]);
+            return true;
+        } catch(error){
+            console.error('Error while remove item:',error);
+            return false;
+        }
+    }
+
+    this.total = async function(){
+        try {
+            const result = await client.query('SELECT SUM(prix) AS total FROM vetements INNER JOIN panier ON vetements.id = panier.id_vetement');
+            return result.rows[0].total;
+          } catch (error) {
+            console.error('Error while getting total:', error);
+            return 0;
+          }
+    }
     
 }
 
