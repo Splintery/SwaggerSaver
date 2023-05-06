@@ -47,3 +47,7 @@ INSERT INTO vetements (nom, chemin, prix, type_vetement, taille) VALUES
 ('Chemise rouge', '/img_vetements/chemise_rouge.png', 19.99, 'Chemise','S'),
 ('Jogging noir nike','/img_vetements/joggings_noir_nike.jpg', 29.99, 'Jogging', 'XXL'),
 ('Chemise rouge', '/img_vetements/chemise_rouge.png', 19.99, 'Chemise','S');
+
+INSERT INTO panier (id_vetement) VALUES 
+(1),
+(4);

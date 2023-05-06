@@ -72,15 +72,15 @@ function bdd(){
         }
     }
 
-    this.remStock = async function(nom){
+    this.remStock = async function(id){
         try{
-            const checkResult = await client.query('SELECT stock FROM vetements WHERE nom = $1', [nom]);
+            const checkResult = await client.query('SELECT stock FROM vetements WHERE id = $1', [id]);
             const currentStock = checkResult.rows[0].stock;
             if (currentStock > 0) {
-                const result = await client.query('UPDATE vetements SET stock = stock-1 WHERE nom=$1',[nom]);
+                const result = await client.query('UPDATE vetements SET stock = stock-1 WHERE id=$1',[id]);
                 return true;
             } else {
-                console.error('Stock is already empty for:', nom);
+                console.error('Stock is already empty for:', id);
                 return false;
             }
         } catch(error){
@@ -132,7 +132,7 @@ function bdd(){
 
     this.addP = async function(id){
         try{
-            const result = await client.query('INSERT INTO panier (vetements_id) VALUES ($1)',[id]);
+            const result = await client.query('INSERT INTO panier (id_vetement) VALUES ($1)',[id]);
             console.log('item added');
             return true;
         } catch(error){
@@ -159,6 +159,26 @@ function bdd(){
             console.error('Error while getting total:', error);
             return 0;
           }
+    }
+
+    this.panier = async function(){
+        try{
+            const result = await client.query('SELECT id_vetement FROM panier');
+            return result.rows.map(row => row.id_vetement);
+        } catch(error){
+            console.error('Error while panier');
+            return null;
+        }
+    }
+
+    this.getV = async function(id){
+        try{
+            const result = await client.query('SELECT * FROM vetements WHERE id = $1',[id]);
+            return result.rows[0];
+        }catch(error){
+            console.error('Error while returning vetement:', error);
+            return null;
+        }
     }
     
 }
