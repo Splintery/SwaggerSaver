@@ -15,9 +15,31 @@ async function run(){
     vetement_welcome = await bdd.allLinks();
 
     await bdd.clear();
+    // await bdd.clear();
+    // await bdd.disconnect();
 }
 
 run();
+
+async function ajoutP(id){
+    await bdd.addP(id);
+    console.log("ajouté avec succès");
+}
+
+async function enleveP(id){
+    await bdd.remP(id);
+    console.log("retiré avec succès");
+}
+
+async function resetP(){
+    await bdd.clear();
+    console.log("reset");
+}
+
+async function totalP(){
+    const total = await bdd.total();
+    console.log("total"+total+"$");
+}
 
 // set the view engine to ejs
 server.set('view engine', 'ejs');
@@ -46,33 +68,28 @@ server.get('/swagger/body/:vetement', async (req, res) =>{
     }
 });
 
+server.post('/swagger/body/:vetement', async (req, res) => {
+    const vet = req.params.vetement;
+    const items = await bdd.categorie(vet);
+    const vetementId = req.body.vetement_id;
+    ajoutP(vetementId);
+    await bdd.remStock(vetementId);
+    res.render('pages/vetement', {categories : categories, type_vet : vet, items : items, bdd : bdd});
+});
+
+
+server.get('/swagger/panier', async (req, res) =>{
+    const vet = await bdd.panier();
+    const p = [];
+    var tmp;
+    for(var i=0; i<vet.length; i++){
+        var tmp = await bdd.getV(vet[i]);
+        p.push(tmp);
+    }
+    res.render('pages/panier', {vetements : p});
+});
+
+
 
 server.listen(8080);
-console.log('http://localhost:8080/swagger');
-
-
-// un fichier qui pourrait remplacer les index1 , index2 ect mais a voir si on a le temps
-/*
-server.get('/swagger/:page/:info', async (req, res, next) => {
-    res.render('pages/index', {categories : categories, page : 0});
-    const p = req.params.page;
-    const i = req.params.info;
-    if(p !== undefined){
-
-        if(i !== undefined){
-
-            // aller dans la page des vetements
-            if(p === 'body' ){
-                if(categories.includes(i)){
-                    const items = await bdd.categorie(i);
-                    res.render('pages/index', {categories : categories, type_vet : i, items : items, page : 1});
-                }else{
-                    console.log("body de " + vet + " existe pas");
-                }
-            }
-
-        }
-
-    }
-});
-*/
+console.log('http://localhost:8080/accueil');

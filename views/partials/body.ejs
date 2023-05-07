@@ -36,32 +36,41 @@
 
 </style>
 
+<!-- <script src="/public/js/panier.js"></script> -->
+
 <div class="corps">
-<h1><%= type_vet %></h1>
-<div class="grid">
-    <% const vetements = items; %>
-    <% var numItemsPerRow = 5; %>
-    <% var numRows = Math.ceil(vetements.length / numItemsPerRow); %>
+    <h1><%= type_vet %></h1>
+    <a href="/swagger/panier">Aller sur la page EJS</a>
+    <div class="grid">
+        <% const vetements = items; %>
+        <% var numItemsPerRow = 5; %>
+        <% var numRows = Math.ceil(vetements.length / numItemsPerRow); %>
 
-    <% for (var i = 0; i < numItemsPerRow; i++) { %>  <!-- On boucle d'abord sur le nombre d'éléments par ligne -->
-    <div class="grid-row">
-        <% for (var j = 0; j < numRows; j++) { %> <!-- Puis on boucle sur le nombre de lignes -->
+        <% for (var i = 0; i < numItemsPerRow; i++) { %>  <!-- On boucle d'abord sur le nombre d'éléments par ligne -->
+        <div class="grid-row">
+            <% for (var j = 0; j < numRows; j++) { %> <!-- Puis on boucle sur le nombre de lignes -->
 
-            <% var index = j * numItemsPerRow + i; %>
-            <% if (index < vetements.length) { %>
-            <div class="grid-item">
-                <img src="/public<%= vetements[index].chemin %>">
-                <div>Nom : <%= vetements[index].nom %></div>
-                <div>Taille : <%= vetements[index].taille %></div>
-                <div>Prix : <%= vetements[index].prix %> €</div>
-                <button onclick="bdd.addP(<%= vetements[index].id %>)">Ajouter</button>
-            </div>
+                <% var index = j * numItemsPerRow + i; %>
+                <% if (index < vetements.length) { %>
+                <div class="grid-item">
+                    <img src="/public<%= vetements[index].chemin %>">
+                    <div>Nom : <%= vetements[index].nom %></div>
+                    <div>Taille : <%= vetements[index].taille %></div>
+                    <div>Quantité : <%= vetements[index].stock %></div>
+                    <div>Prix : <%= vetements[index].prix %> €</div>
+                    <% if(vetements[index].stock > 0) { %>
+                    <form action="#" method="POST">
+                        <input type="hidden" name="vetement_id" value="<%= vetements[index].id %>">
+                        <button type="submit">Ajouté au panier</button>
+                    </form>
+                    <% } %>                      
+                </div>
+                <% } %>
             <% } %>
+        </div>
+
         <% } %>
     </div>
 
-    <% } %>
-</div>
-
-</div>
+    </div>
 </div>

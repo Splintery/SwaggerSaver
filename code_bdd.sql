@@ -51,3 +51,7 @@ INSERT INTO vetements (nom, chemin, prix, type_vetement, taille, stock) VALUES
 INSERT INTO vetements (nom, chemin, prix, type_vetement, taille, stock) VALUES
 ('veste drill', '/img_vetements/veste_drill.jpeg', 34.99, 'Veste', 'S', 2),
 ('veste torrey', '/img_vetements/veste_torrey.webp', 19.99, 'Veste', 'L', 1);
+
+INSERT INTO panier (id_vetement) VALUES 
+(1),
+(4);
