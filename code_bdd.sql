@@ -33,17 +33,21 @@ INSERT INTO categorie VALUES
 ('Jogging'),
 ('Accesoires');
 
-INSERT INTO vetements (nom, chemin, prix, type_vetement, taille, stock) VALUES 
-('Chemise à carreaux rouge', '/img_vetements/chemise_carreaux_rouges.jpg', 19.99, 'Chemise','S',36),
-('Chemise à carreaux rouge', '/img_vetements/chemise_carreaux_rouges.jpg', 19.99, 'Chemise','L',15),
-('Jogging noir nike','/img_vetements/joggings_noir_nike.jpg', 29.99, 'Jogging', 'XXL',216),
-('Chemise rouge', '/img_vetements/chemise_rouge.png', 19.99, 'Chemise','L',15),
-('Chemise rouge', '/img_vetements/chemise_rouge.png', 19.99, 'Chemise','M',19),
-('Chemise blanche', '/img_vetements/chemise_blanche.png', 19.99, 'Chemise','S',40),
-('Chemise bleu', '/img_vetements/chemise_bleu.png', 19.99, 'Chemise','L',35),
-('Jeans noir','/img_vetements/jeans_noir.png', 24.99, 'Jeans','XL',125);
 
-INSERT INTO vetements (nom, chemin, prix, type_vetement, taille) VALUES 
-('Chemise rouge', '/img_vetements/chemise_rouge.png', 19.99, 'Chemise','S'),
-('Jogging noir nike','/img_vetements/joggings_noir_nike.jpg', 29.99, 'Jogging', 'XXL'),
-('Chemise rouge', '/img_vetements/chemise_rouge.png', 19.99, 'Chemise','S');
+-- Les chemises :
+INSERT INTO vetements (nom, chemin, prix, type_vetement, taille, stock) VALUES
+('Chemise dakota', '/img_vetements/chemise_dakota.webp', 29.99, 'Chemise', 'L', 25),
+('Chemise anaheim', '/img_vetements/chemise_anaheim.jpeg', 19.99, 'Chemise', 'M', 14),
+('Chemise helleson', '/img_vetements/chemise_helleson.webp', 29.99, 'Chemise', 'L', 4),
+('Chemise miller', '/img_vetements/chemise_miller.jpeg', 39.99, 'Chemise', 'M', 9);
+
+-- Les sweat :
+INSERT INTO vetements (nom, chemin, prix, type_vetement, taille, stock) VALUES
+('sweat alva', '/img_vetements/sweat_alva.webp', 5.99, 'Sweat', 'M', 3),
+('sweat quartier', '/img_vetements/sweat_quartier.jpeg', 14.99, 'Sweat', 'L', 7),
+('sweat sidestripe', '/img_vetements/sweat_sidestripe.jpeg', 24.99, 'Sweat', 'M', 27);
+
+-- Les vestes :
+INSERT INTO vetements (nom, chemin, prix, type_vetement, taille, stock) VALUES
+('veste drill', '/img_vetements/veste_drill.jpeg', 34.99, 'Veste', 'S', 2),
+('veste torrey', '/img_vetements/veste_torrey.webp', 19.99, 'Veste', 'L', 1);

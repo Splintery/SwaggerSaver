@@ -6,22 +6,18 @@ server.use('/public', express.static('public'));
 
 const bdd = require('./bdd');
 let categories = [];
+let vetement_welcome = [];
 async function run(){
     await bdd.connect();
     
-    // var test = await bdd.stock();
-    // console.log("vetements disponible: " + test);
-
-    // var test2 = await bdd.categorie("Chemise");
-    // console.log(test2[0].nom);
     
     categories = await bdd.list_categories();
+    vetement_welcome = await bdd.allLinks();
+
     await bdd.clear();
-    // await bdd.disconnect();
 }
 
 run();
-
 
 // set the view engine to ejs
 server.set('view engine', 'ejs');
@@ -37,8 +33,23 @@ server.use((req, res, next) => {
 // use res.render to load up an ejs view file
 server.get('/swagger', (req, res, next) => {
     console.log("viewing page !");
-    res.render('pages/acceuil', {categories : categories});
+    res.render('pages/accueil', {categories : categories, display_clothes : vetement_welcome});
 });
+
+server.get('/swagger/body/:vetement', async (req, res) =>{
+    const vet = req.params.vetement;
+    if(categories.includes(vet)){
+        const items = await bdd.categorie(vet);
+        res.render('pages/vetement', {categories : categories, type_vet : vet, items : items, bdd : bdd});
+    }else{
+        console.log("body de " + vet + " existe pas");
+    }
+});
+
+
+server.listen(8080);
+console.log('http://localhost:8080/swagger');
+
 
 // un fichier qui pourrait remplacer les index1 , index2 ect mais a voir si on a le temps
 /*
@@ -65,18 +76,3 @@ server.get('/swagger/:page/:info', async (req, res, next) => {
     }
 });
 */
-
-
-server.get('/swagger/body/:vetement', async (req, res) =>{
-    const vet = req.params.vetement;
-    if(categories.includes(vet)){
-        const items = await bdd.categorie(vet);
-        res.render('pages/vetement', {categories : categories, type_vet : vet, items : items, bdd : bdd});
-    }else{
-        console.log("body de " + vet + " existe pas");
-    }
-});
-
-
-server.listen(8080);
-console.log('http://localhost:8080/acceuil');

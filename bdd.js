@@ -1,20 +1,20 @@
 function bdd(){
 
     const pg = require('pg');
-    const pool = new pg.Pool({
-        user: 'francois',
-        host: 'localhost',
-        database: 'bdd',
-        password: '123456',
-        port: 5432
-    });
     // const pool = new pg.Pool({
-    //     user: 'postgres',
+    //     user: 'francois',
     //     host: 'localhost',
     //     database: 'bdd',
-    //     password: '1234',
+    //     password: '123456',
     //     port: 5432
     // });
+    const pool = new pg.Pool({
+        user: 'postgres',
+        host: 'localhost',
+        database: 'bdd',
+        password: '1234',
+        port: 5432
+    });
 
     let client;
 
@@ -46,6 +46,16 @@ function bdd(){
             
         } catch (error) {
             console.log('Error while requesting list-categories:', error);
+            return [];
+        }
+    }
+
+    this.allLinks = async function() {
+        try {
+            const result = await client.query('SELECT DISTINCT chemin FROM vetements');
+            return result.rows.map(row => row.chemin);
+        } catch (error) {
+            console.log('Error while requsting allLinks :', error);
             return [];
         }
     }
