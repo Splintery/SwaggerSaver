@@ -12,7 +12,8 @@ async function run(){
     
     
     categories = await bdd.list_categories();
-    vetement_welcome = await bdd.allLinks();
+    //vetement_welcome = await bdd.allLinks();
+    vetements = await bdd.getAll();
 
     await bdd.clear();
     // await bdd.clear();
@@ -55,6 +56,12 @@ server.use((req, res, next) => {
 // use res.render to load up an ejs view file
 server.get('/swagger', (req, res, next) => {
     console.log("viewing page !");
+
+    res.render('pages/accueil', {categories : categories, vetements : vetements});
+});
+
+server.post('/swagger', (req, res, next) => {
+
     res.render('pages/accueil', {categories : categories, display_clothes : vetement_welcome});
 });
 

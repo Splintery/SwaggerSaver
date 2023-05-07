@@ -1,7 +1,16 @@
+<style>
+    .list-button-div {
+	    width: 100px;
+	    height: 100px;
+    }
+</style>
+
 <nav>
     <div class="list-button-container">
         <button id="list-button">
-            #
+            <div class="list-button-div">
+                <%- include("icons/menu_list_icon.svg") %>
+            </div>
         </button>
     </div>
     <div class="list-container" id="categories">
@@ -21,12 +30,7 @@
         </ul>
     </div>
     <div class="title-container">
-        <h1>Swagger Saver</h1>
-    </div>
-    <div class="customer-account-container">
-        <a href="#">
-            <!-- <img src="images/utilisateur.jpg" id="utilisateur"> -->
-        </a>
+        <h1>Swagger Saver</h1>s
     </div>
     <div class="basket-container">
         <a href="#">

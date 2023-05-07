@@ -1,20 +1,20 @@
 function bdd(){
 
     const pg = require('pg');
-    // const pool = new pg.Pool({
-    //     user: 'francois',
-    //     host: 'localhost',
-    //     database: 'bdd',
-    //     password: '123456',
-    //     port: 5432
-    // });
     const pool = new pg.Pool({
-        user: 'postgres',
+        user: 'francois',
         host: 'localhost',
         database: 'bdd',
-        password: '1234',
+        password: '123456',
         port: 5432
     });
+    // const pool = new pg.Pool({
+    //     user: 'postgres',
+    //     host: 'localhost',
+    //     database: 'bdd',
+    //     password: '1234',
+    //     port: 5432
+    // });
 
     let client;
 
@@ -26,6 +26,16 @@ function bdd(){
         if(client){
             await client.release();
             console.log("Disconnected from database.");
+        }
+    }
+
+    this.getAll = async function(){
+        try{
+            const result = await client.query('SELECT * FROM vetements');
+            return result.rows;
+        } catch(error){
+            console.error('Error vetements',error);
+            return null;
         }
     }
 

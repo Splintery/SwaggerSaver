@@ -2,7 +2,7 @@
 	<%
 		for (var i = 0; i < 5; i++) { %>
 			<div class="sub" id="<%= "div"+i%>">
-				<img src="/public<%= display_clothes[i]%>">
+				<img href="<%= vetements[i].chemin%>" src="/public<%= vetements[i].chemin%>">
 			</div>
 		<% }
 	%>
