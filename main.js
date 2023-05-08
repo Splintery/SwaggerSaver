@@ -15,7 +15,6 @@ async function run(){
     //vetement_welcome = await bdd.allLinks();
     vetements = await bdd.getAll();
 
-    await bdd.clear();
     // await bdd.clear();
     // await bdd.disconnect();
 }
@@ -51,7 +50,9 @@ server.use((req, res, next) => {
     next();
 });
 
-
+server.get('/', (req, res) => {
+    console.log("non");
+});
 
 // use res.render to load up an ejs view file
 server.get('/accueil', (req, res, next) => {
@@ -60,16 +61,18 @@ server.get('/accueil', (req, res, next) => {
     res.render('pages/accueil', {categories : categories, vetements : vetements});
 });
 
-server.post('/swagger', (req, res, next) => {
-
-    res.render('pages/accueil', {categories : categories, display_clothes : vetement_welcome});
+server.post('/swagger', async (req, res, next) => {
+    const id_v = req.body.id_vet;
+    ajoutP(id_v);
+    await bdd.remStock(id_v);
+    res.render('pages/accueil', {categories : categories, vetements : vetements});
 });
 
 server.get('/swagger/body/:vetement', async (req, res) =>{
     const vet = req.params.vetement;
     if(categories.includes(vet)){
         const items = await bdd.categorie(vet);
-        res.render('pages/vetement', {categories : categories, type_vet : vet, items : items, bdd : bdd});
+        res.render('pages/vetement', {categories : categories, type_vet : vet, items : items});
     }else{
         console.log("body de " + vet + " existe pas");
     }
@@ -81,7 +84,7 @@ server.post('/swagger/body/:vetement', async (req, res) => {
     const vetementId = req.body.vetement_id;
     ajoutP(vetementId);
     await bdd.remStock(vetementId);
-    res.render('pages/vetement', {categories : categories, type_vet : vet, items : items, bdd : bdd});
+    res.render('pages/vetement', {categories : categories, type_vet : vet, items : items});
 });
 
 
@@ -96,7 +99,40 @@ server.get('/swagger/panier', async (req, res) =>{
     res.render('pages/panier', {vetements : p});
 });
 
+server.post('/swagger/panier', async (req, res) =>{
+    if(req.body.remove == 1) await bdd.clear();
+    const vet = await bdd.panier();
+    const p = [];
+    var tmp;
+    for(var i=0; i<vet.length; i++){
+        var tmp = await bdd.getV(vet[i]);
+        p.push(tmp);
+    }
+    res.render('pages/panier', {vetements : p});
+});
 
+server.get('/swagger/admin', async (req,res) =>{
+    res.render('pages/admin', {vetements : vetements});
+});
+
+server.post('/swagger/admin/ajouter', async (req,res)=>{
+    const nom = req.body.nom;
+    const chemin = req.body.chemin;
+    const prix = req.body.prix;
+    const type_vetement = req.body.type;
+    const taille = req.body.taille;
+    var stock = req.body.stock;
+    await bdd.insert(nom,chemin,prix,type_vetement,taille,stock);
+    vetements = await bdd.getAll();
+    res.render('pages/admin', {vetements : vetements});
+});
+
+server.post('/swagger/admin/retirer', async (req, res) =>{
+    const id = req.body.id;
+    await bdd.rem(id);
+    vetements = await bdd.getAll();
+    res.render('pages/admin', {vetements : vetements});
+});
 
 server.listen(8080);
 console.log('http://localhost:8080/accueil');

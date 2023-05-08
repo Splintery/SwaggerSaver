@@ -51,6 +51,29 @@
 			font-weight: bold;
 			margin-top: 20px;
 		}
+
+		#reset {
+			background-color: #333;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			font-size: 16px;
+			cursor: pointer;
+			margin-top: 20px;
+		}
+
+		#valide {
+			background-color: #4CAF50;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			font-size: 16px;
+			cursor: pointer;
+			margin-top: 20px;
+		}
+		
 	</style>
 </head>
 <body>
@@ -76,12 +99,20 @@
 				<% } %>
 			</tbody>
 		</table>
+		<form method="post" action="">
+			<input type="hidden" name="remove" value=1>
+			<button id="reset" type="submit">Retirer</button>
+		</form>
 	</div>
 	<div id="right-side">
 		<h2>Total</h2>
 		<div id="total-price">
 			<h1><%= total %></h1>
 		</div>
+		<form method="post" action="">
+			<input type="hidden" name="remove" value=1>
+			<button id="valide" type="submit">Valider</button>
+		</form>
 	</div>
 </body>
 </html>
