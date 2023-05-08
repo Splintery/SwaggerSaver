@@ -1,28 +1,21 @@
-<style>
-    .list-button-div {
-	    width: 100px;
-	    height: 100px;
-    }
-</style>
-
 <nav>
     <div class="list-button-container">
         <button id="list-button">
-            <div class="list-button-div">
+            <div id="open-list-button-img">
                 <%- include("icons/menu_list_icon.svg") %>
+            </div>
+            <div id="close-list-button-img">
+                <%- include("icons/exit_icon.svg")%>
             </div>
         </button>
     </div>
     <div class="list-container" id="categories">
-        <div class="close-list-container">
-            <button id="close-list-button">X</button>
-        </div>
-        <ul >
+        <ul>
             <%
                 for (var i = 0; i < categories.length; i++) {
                 %>
                     <li id="li<%=i%>">
-                        <a href="#"><%=categories[i]%></a>
+                        <a class="clothes-links" href="#"><%=categories[i]%></a>
                     </li>
                 <% 
                 }
@@ -30,23 +23,35 @@
         </ul>
     </div>
     <div class="title-container">
-        <h1>Swagger Saver</h1>s
+        <div class="title-img">
+            <%- include("icons/logo-white.svg")%>           
+        </div>
     </div>
     <div class="basket-container">
         <a href="#">
-            <!-- <img src="images/panier.jpg" id="panier"> -->
+            <%- include("icons/basket_icon.svg") %>
         </a>
     </div>
     
     <script>
+        var panelOpened = false;
+        var openImg = document.getElementById("open-list-button-img");
+        var closeImg = document.getElementById("close-list-button-img");
         var list = document.getElementById("categories");
         document.getElementById("list-button").addEventListener("mousedown",
         function() {
-            list.style.left = "0px";
-        });
-        document.getElementById("close-list-button").addEventListener("mousedown",
-        function() {
-            list.style.left = "-25%";
+            if (panelOpened) {
+                list.style.left = "-25%";               
+                panelOpened = false;
+                openImg.style.display = "flex";
+                closeImg.style.display = "none";
+            } else {
+                list.style.left = "0px";
+                panelOpened = true;
+                openImg.style.display = "none";
+                closeImg.style.display = "flex";
+            }
+            
         });
     </script>
 

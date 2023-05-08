@@ -54,7 +54,7 @@ server.use((req, res, next) => {
 
 
 // use res.render to load up an ejs view file
-server.get('/swagger', (req, res, next) => {
+server.get('/accueil', (req, res, next) => {
     console.log("viewing page !");
 
     res.render('pages/accueil', {categories : categories, vetements : vetements});
