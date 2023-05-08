@@ -50,7 +50,9 @@ server.use((req, res, next) => {
     next();
 });
 
-
+server.get('/', (req, res) => {
+    console.log("non");
+});
 
 // use res.render to load up an ejs view file
 server.get('/swagger', (req, res, next) => {
@@ -109,7 +111,28 @@ server.post('/swagger/panier', async (req, res) =>{
     res.render('pages/panier', {vetements : p});
 });
 
+server.get('/swagger/admin', async (req,res) =>{
+    res.render('pages/admin', {vetements : vetements});
+});
 
+server.post('/swagger/admin/ajouter', async (req,res)=>{
+    const nom = req.body.nom;
+    const chemin = req.body.chemin;
+    const prix = req.body.prix;
+    const type_vetement = req.body.type;
+    const taille = req.body.taille;
+    var stock = req.body.stock;
+    await bdd.insert(nom,chemin,prix,type_vetement,taille,stock);
+    vetements = await bdd.getAll();
+    res.render('pages/admin', {vetements : vetements});
+});
+
+server.post('/swagger/admin/retirer', async (req, res) =>{
+    const id = req.body.id;
+    await bdd.rem(id);
+    vetements = await bdd.getAll();
+    res.render('pages/admin', {vetements : vetements});
+});
 
 server.listen(8080);
 console.log('http://localhost:8080/accueil');

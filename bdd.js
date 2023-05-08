@@ -121,18 +121,27 @@ function bdd(){
 
     this.insert = async function(nom, path, prix, categorie, taille, stock) {
         try {
-            const checkResult = await client.query('SELECT * FROM vetements WHERE nom = $1', [nom]);
+            const checkResult = await client.query('SELECT * FROM vetements WHERE nom = $1 AND taille = $2', [nom, taille]);
             if (checkResult.rows.length > 0) {
                 console.error('Un vetement avec le même nom existe déjà.');
                 return false;
             } else {
-                const result = await client.query('INSERT INTO vetements (nom, path, prix, type_vetement, taille, stock) VALUES ($1, $2, $3, $4, $5, $6)', [nom, path, prix, categorie, taille, stock]);
+                const result = await client.query('INSERT INTO vetements (nom, chemin, prix, type_vetement, taille, stock) VALUES ($1, $2, $3, $4, $5, $6)', [nom, path, prix, categorie, taille, stock]);
                 console.log('Nouveau vetement inséré avec succès :', nom);
                 return true;
             }
         } catch (error) {
             console.error('Erreur lors de l\'insertion du vetement :', error);
             return false;
+        }
+    }
+
+    this.rem = async function(id){
+        try{
+            await client.query('DELETE FROM vetements WHERE id = $1', [id]);
+            console.log('removed');
+        } catch(error){
+            console.log('Error while remove', error);
         }
     }
 

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Admin</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-color: beige;
+        }
+
+        form {
+            width: 40%;
+            margin: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin: 10px 0;
+        }
+
+        input,
+        select {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 40%;
+            margin: 0 20px;
+            border-collapse: collapse;
+        }
+
+        table td,
+        table th {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        table th {
+            background-color: #eee;
+        }
+
+        button[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type=submit]:hover {
+            background-color: #3e8e41;
+        }
+
+        button[type=button] {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type=button]:hover {
+            background-color: #c62828;
+        }
+
+        .table-container {
+            float: left;
+            width: 50%;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="/swagger/admin/ajouter" method="POST">
+        <h1>ADMIN</h1>
+        <label for="nom">Nom :</label>
+        <input type="text" name="nom" id="nom" required>
+
+        <label for="chemin">Chemin :</label>
+        <input type="text" name="chemin" id="chemin" placeholder="/img_vetements/nom_vetements" required>
+
+        <label for="prix">Prix :</label>
+        <input type="number" name="prix" id="prix" step="0.01" required>
+
+        <label for="type">Type de vêtement :</label>
+        <select name="type" id="type" required>
+            <option value="">-- Choisissez le type de vêtement --</option>
+            <option value="Chemise">Chemise</option>
+            <option value="Veste">Veste</option>
+            <option value="Tshirt">T-shirt</option>
+            <option value="Sweat">Sweat</option>
+            <option value="Jeans">Jeans</option>
+            <option value="Jogging">Jogging</option>
+            <option value="Accessoires">Accessoires</option>
+        </select>
+
+        <label for="taille">Taille :</label>
+        <select name="taille" id="taille" required>
+            <option value="">-- Choisissez la taille --</option>
+            <option value="XS">XS</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+        </select>
+
+        <label for="stock">Stock :</label>
+        <input type="number" name="stock" id="stock" required>
+
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Taille</th>
+                    <th>Retirer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let i=0; i < vetements.length; i++) { %>
+                    <tr>
+                        <td>
+                            <%= vetements[i].id %>
+                        </td>
+                        <td>
+                            <%= vetements[i].nom %>
+                        </td>
+                        <td>
+                            <%= vetements[i].taille %>
+                        </td>
+                        <td>
+                            <form action="/swagger/admin/retirer" method="POST">
+                                <input type="hidden" name="id" value="<%= vetements[i].id %>">
+                                <button type="submit">Retirer</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+    </div>
+
+</body>
