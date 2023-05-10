@@ -37,8 +37,8 @@ async function resetP(){
 }
 
 async function totalP(){
-    const total = await bdd.total();
-    console.log("total"+total+"$");
+    const res = await bdd.total();
+    return res;
 }
 
 // set the view engine to ejs
@@ -55,24 +55,27 @@ server.get('/', (req, res) => {
 });
 
 // use res.render to load up an ejs view file
-server.get('/accueil', (req, res, next) => {
+server.get('/swagger', async (req, res, next) => {
     console.log("viewing page !");
-
-    res.render('pages/accueil', {categories : categories, vetements : vetements});
+    const total = await totalP();
+    console.log(total);
+    res.render('pages/accueil', {categories : categories, vetements : vetements, total : total});
 });
 
 server.post('/swagger', async (req, res, next) => {
     const id_v = req.body.id_vet;
     ajoutP(id_v);
     await bdd.remStock(id_v);
-    res.render('pages/accueil', {categories : categories, vetements : vetements});
+    const total = await totalP();
+    res.render('pages/accueil', {categories : categories, vetements : vetements, total : total});
 });
 
 server.get('/swagger/body/:vetement', async (req, res) =>{
     const vet = req.params.vetement;
     if(categories.includes(vet)){
         const items = await bdd.categorie(vet);
-        res.render('pages/vetement', {categories : categories, type_vet : vet, items : items});
+        const total = await totalP();
+        res.render('pages/vetement', {categories : categories, type_vet : vet, items : items, total : total});
     }else{
         console.log("body de " + vet + " existe pas");
     }
@@ -84,7 +87,8 @@ server.post('/swagger/body/:vetement', async (req, res) => {
     const vetementId = req.body.vetement_id;
     ajoutP(vetementId);
     await bdd.remStock(vetementId);
-    res.render('pages/vetement', {categories : categories, type_vet : vet, items : items});
+    const total = await totalP();
+    res.render('pages/vetement', {categories : categories, type_vet : vet, items : items, total});
 });
 
 
@@ -135,4 +139,4 @@ server.post('/swagger/admin/retirer', async (req, res) =>{
 });
 
 server.listen(8080);
-console.log('http://localhost:8080/accueil');
+console.log('http://localhost:8080/swagger');

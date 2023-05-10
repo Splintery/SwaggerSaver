@@ -15,7 +15,7 @@
                 for (var i = 0; i < categories.length; i++) {
                 %>
                     <li id="li<%=i%>">
-                        <a class="clothes-links" href="#"><%=categories[i]%></a>
+                        <a class="clothes-links" href="/swagger/body/<%=categories[i]%>"><%=categories[i]%></a>
                     </li>
                 <% 
                 }
@@ -26,9 +26,12 @@
         <div class="title-img">
             <%- include("icons/logo-white.svg")%>           
         </div>
+
+        <h1>Total : <%= total %></h1>
+
     </div>
     <div class="basket-container">
-        <a href="#">
+        <a href="/swagger/panier">
             <%- include("icons/basket_icon.svg") %>
         </a>
     </div>
