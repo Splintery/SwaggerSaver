@@ -1,75 +1,46 @@
-<style type="text/css">
-    
-    .corps{
-        margin-top: 100px;
-    }
-
-    .corps h1{
-        text-align: center;
-        color: yellow;
-        font-size: 30mm;
-    }
-
-    /* Styles pour la grille */
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr); /* 5 colonnes de largeur égale */
-        grid-gap: 10px; /* Espacement entre les cellules de la grille */
-        /*border: 1px solid black; /* Ajoute une bordure à la grille */
-        padding: 20px;
-    }
-    
-    /* Styles pour les éléments de la grille */
-    .grid-item {
-        /* Vous pouvez personnaliser ces styles en fonction de vos besoins */
-        background-color: rgba(255, 255, 255, 0.4);
-        padding: 20px;
-        text-align: center;
-        border: 1px solid black; /* Ajoute une bordure à la grille */
-    }
-
-    .grid-item img {
-        width: 200px;
-        height: 250px;
-        object-fit: cover; /* Ajuste l'image pour qu'elle couvre le conteneur tout en conservant le rapport hauteur / largeur */
-    }    
-
-</style>
-
 <!-- <script src="/public/js/panier.js"></script> -->
 
 <div class="corps">
-    <h1><%= type_vet %></h1>
-    <div class="grid">
-        <% const vetements = items; %>
-        <% var numItemsPerRow = 5; %>
-        <% var numRows = Math.ceil(vetements.length / numItemsPerRow); %>
-
-        <% for (var i = 0; i < numItemsPerRow; i++) { %>  <!-- On boucle d'abord sur le nombre d'éléments par ligne -->
-        <div class="grid-row">
-            <% for (var j = 0; j < numRows; j++) { %> <!-- Puis on boucle sur le nombre de lignes -->
-
-                <% var index = j * numItemsPerRow + i; %>
-                <% if (index < vetements.length) { %>
-                <div class="grid-item">
-                    <img src="/public<%= vetements[index].chemin %>">
-                    <div>Nom : <%= vetements[index].nom %></div>
-                    <div>Taille : <%= vetements[index].taille %></div>
-                    <div>Quantité : <%= vetements[index].stock %></div>
-                    <div>Prix : <%= vetements[index].prix %> €</div>
-                    <% if(vetements[index].stock > 0) { %>
-                    <form action="#" method="POST">
-                        <input type="hidden" name="vetement_id" value="<%= vetements[index].id %>">
-                        <button type="submit">Ajouté au panier</button>
-                    </form>
-                    <% } %>                      
-                </div>
-                <% } %>
-            <% } %>
-        </div>
-
-        <% } %>
+    <div>
+        <h1><%= type_vet %></h1>
     </div>
+    <div class="grid">
+        <% 
+            const vetements = items;
+            var numItemsPerRow = 5;
+            var numRows = Math.ceil(vetements.length / numItemsPerRow);
 
+            for (var i = 0; i < numItemsPerRow; i++) { %>  <!-- On boucle d'abord sur le nombre d'éléments par ligne -->
+                <div class="grid-row"> <!-- Puis on boucle sur le nombre de lignes -->
+                <%
+                    for (var j = 0; j < numRows; j++) {
+                        var index = j * numItemsPerRow + i;
+                        if (index < vetements.length) { %>
+                            <div class="grid-item">
+                                <img src="/public<%= vetements[index].chemin %>">
+                                <div>Nom : <%= vetements[index].nom %></div>
+                                <div>Taille : <%= vetements[index].taille %></div>
+                                <div>Quantité : <%= vetements[index].stock %></div>
+                                <div>Prix : <%= vetements[index].prix %> €</div>
+                        <%
+                            if(vetements[index].stock > 0) { %>
+                                <form action="#" method="POST">
+                                    <input type="hidden" name="vetement_id" value="<%= vetements[index].id %>">
+                                    <button type="submit">Ajouté au panier</button>
+                                </form>
+                        <%
+                            }
+                        %>                      
+                        </div>
+                    <%
+                        }
+                    %>
+                <%
+                    }
+                %>
+                </div>
+        <%
+            }
+        %>
     </div>
 </div>

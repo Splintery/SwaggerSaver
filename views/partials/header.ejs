@@ -41,20 +41,26 @@
         var openImg = document.getElementById("open-list-button-img");
         var closeImg = document.getElementById("close-list-button-img");
         var list = document.getElementById("categories");
+        var size = 25;
         document.getElementById("list-button").addEventListener("mousedown",
         function() {
+            if (window.innerWidth < 750) {
+                size = 50;
+            } else {
+                size = 25;
+            }
             if (panelOpened) {
-                list.style.left = "-25%";               
+                list.style.left = "-" + 50 + "%";         
                 panelOpened = false;
                 openImg.style.display = "flex";
                 closeImg.style.display = "none";
             } else {
+                list.style.width = size + "%";
                 list.style.left = "0px";
                 panelOpened = true;
                 openImg.style.display = "none";
                 closeImg.style.display = "flex";
             }
-            
         });
     </script>
 
