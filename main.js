@@ -142,5 +142,9 @@ server.post('/swagger/admin/retirer', async (req, res) =>{
     res.render('pages/admin', {vetements : vetements});
 });
 
+server.get('*', (req,res) =>{
+    res.render('pages/erreur');
+});
+
 server.listen(8080);
 console.log('http://localhost:8080/swagger');
