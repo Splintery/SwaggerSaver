@@ -1,20 +1,20 @@
 function bdd(){
 
     const pg = require('pg');
-    // const pool = new pg.Pool({
-    //     user: 'francois',
-    //     host: 'localhost',
-    //     database: 'bdd',
-    //     password: '123456',
-    //     port: 5432
-    // });
     const pool = new pg.Pool({
-        user: 'postgres',
+        user: 'francois',
         host: 'localhost',
         database: 'bdd',
-        password: '1234',
+        password: '123456',
         port: 5432
     });
+    // const pool = new pg.Pool({
+    //     user: 'postgres',
+    //     host: 'localhost',
+    //     database: 'bdd',
+    //     password: '1234',
+    //     port: 5432
+    // });
 
     let client;
 
@@ -207,6 +207,14 @@ function bdd(){
         }catch(error){
             console.error('Error while returning vetement:', error);
             return null;
+        }
+    }
+
+    this.updateV = async function(id,stock){
+        try{
+            const result = await client.query('UPDATE vetements SET stock = $2 WHERE id=$1',[id,stock]);
+        } catch(error){
+            console.error('Error while update vetements:',error);
         }
     }
     

@@ -100,7 +100,8 @@ server.get('/swagger/panier', async (req, res) =>{
         var tmp = await bdd.getV(vet[i]);
         p.push(tmp);
     }
-    res.render('pages/panier', {vetements : p});
+    const total = await totalP();
+    res.render('pages/panier', {vetements : p, categories : categories, total});
 });
 
 server.post('/swagger/panier', async (req, res) =>{
@@ -112,7 +113,8 @@ server.post('/swagger/panier', async (req, res) =>{
         var tmp = await bdd.getV(vet[i]);
         p.push(tmp);
     }
-    res.render('pages/panier', {vetements : p});
+    const total = await totalP();
+    res.render('pages/panier', {vetements : p, categories : categories, total});
 });
 
 server.get('/swagger/admin', async (req,res) =>{
@@ -120,13 +122,15 @@ server.get('/swagger/admin', async (req,res) =>{
 });
 
 server.post('/swagger/admin/ajouter', async (req,res)=>{
-    const nom = req.body.nom;
-    const chemin = req.body.chemin;
-    const prix = req.body.prix;
-    const type_vetement = req.body.type;
-    const taille = req.body.taille;
+    // const nom = req.body.nom;
+    // const chemin = req.body.chemin;
+    // const prix = req.body.prix;
+    // const type_vetement = req.body.type;
+    // const taille = req.body.taille;
     var stock = req.body.stock;
-    await bdd.insert(nom,chemin,prix,type_vetement,taille,stock);
+    // await bdd.insert(nom,chemin,prix,type_vetement,taille,stock);
+    const id = req.body.id;
+    await bdd.updateV(id,stock);
     vetements = await bdd.getAll();
     res.render('pages/admin', {vetements : vetements});
 });
