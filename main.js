@@ -85,6 +85,8 @@ server.post('/swagger/body/:vetement', async (req, res) => {
     const vet = req.params.vetement;
     const items = await bdd.categorie(vet);
     const vetementId = req.body.vetement_id;
+    console.log("test");
+    console.log(vetementId);
     ajoutP(vetementId);
     await bdd.remStock(vetementId);
     const total = await totalP();

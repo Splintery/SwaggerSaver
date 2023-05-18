@@ -4,43 +4,58 @@
     <div>
         <h1><%= type_vet %></h1>
     </div>
-    <div class="grid">
-        <% 
-            const vetements = items;
-            var numItemsPerRow = 5;
-            var numRows = Math.ceil(vetements.length / numItemsPerRow);
-
-            for (var i = 0; i < numItemsPerRow; i++) { %>  <!-- On boucle d'abord sur le nombre d'éléments par ligne -->
-                <div class="grid-row"> <!-- Puis on boucle sur le nombre de lignes -->
-                <%
-                    for (var j = 0; j < numRows; j++) {
-                        var index = j * numItemsPerRow + i;
-                        if (index < vetements.length) { %>
-                            <div class="grid-item">
-                                <img src="/public<%= vetements[index].chemin %>">
-                                <div>Nom : <%= vetements[index].nom %></div>
-                                <div>Taille : <%= vetements[index].taille %></div>
-                                <div>Quantité : <%= vetements[index].stock %></div>
-                                <div>Prix : <%= vetements[index].prix %> €</div>
-                        <%
-                            if(vetements[index].stock > 0) { %>
-                                <form action="#" method="POST">
-                                    <input type="hidden" name="vetement_id" value="<%= vetements[index].id %>">
-                                    <button type="submit">Ajouté au panier</button>
-                                </form>
-                        <%
-                            }
-                        %>                      
-                        </div>
-                    <%
-                        }
-                    %>
-                <%
-                    }
-                %>
-                </div>
+    <div class="organes">
         <%
+        function isIn(list, element) {
+            for (var i = 0; i < list.length; i++) {
+                if (list[i][0].nom == element.nom) {
+                    return i;
+                }
             }
-        %>
+            return -1;
+        }
+        const vetements = items;
+        var vetSansDoublon = [];
+        var counter = -1;
+        for (var i = 0; i < vetements.length; i++) {
+            counter = isIn(vetSansDoublon, vetements[i]);
+            if (counter == -1) {
+                vetSansDoublon.push([vetements[i]]);
+            } else {
+                vetSansDoublon[counter].push(vetements[i]);
+            }
+        }
+
+        for (var i = 0; i < vetSansDoublon.length; i++) {%>
+            <div class="card">  
+                <div>
+                    <img src="/public<%=vetSansDoublon[i][0].chemin%>">
+                </div>
+                <div>
+                    <p>Nom : <%= vetSansDoublon[i][0].nom%></p>
+                    <!-- <p>Quantité : <%= vetSansDoublon[i][0].stock %></p> -->
+                    <p>Prix : <%= vetSansDoublon[i][0].prix %> €</p>
+                    <select name="vetement_id" form="panier<%=i%>">
+                        <%
+                        for(var j = 0; j < vetSansDoublon[i].length; j++) {
+                            if (vetSansDoublon[i][j].stock > 0) {%>
+                                <option value="<%=vetSansDoublon[i][j].id%>">
+                                    <%= vetSansDoublon[i][j].taille+"("+vetSansDoublon[i][j].stock+")"%>
+                                </option>
+                            <%    
+                            }
+                        }%>
+                    </select>
+                    <%
+                    if (vetSansDoublon[i][0].stock > 0) {%>
+                        <form action="#" method="POST" id="panier<%=i%>">
+                            <button type="submit">Ajouter au panier</button>
+                        </form>
+                    <%
+                    }%>
+                </div>
+            </div>
+        <%
+        }%>
     </div>
 </div>

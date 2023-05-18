@@ -37,11 +37,13 @@ INSERT INTO categorie VALUES
 -- Les chemises :
 INSERT INTO vetements (nom, chemin, prix, type_vetement, taille, stock) VALUES
 ('Chemise dakota', '/img_vetements/chemise_dakota.webp', 29.99, 'Chemise', 'L', 25),
+('Chemise dakota', '/img_vetements/chemise_dakota.webp', 29.99, 'Chemise', 'S', 25),
 ('Chemise anaheim', '/img_vetements/chemise_anaheim.jpeg', 19.99, 'Chemise', 'M', 14),
 ('Chemise helleson', '/img_vetements/chemise_helleson.webp', 29.99, 'Chemise', 'L', 4),
 ('Chemise miller', '/img_vetements/chemise_miller.jpeg', 39.99, 'Chemise', 'M', 9),
 ('Chemise Bayview', '/img_vetements/chemise_bayview.webp', 9.99, 'Chemise', 'S', 10),
-('Chemise Miami', '/img_vetements/chemise_miami.webp', 7.99, 'Chemise', 'L', 7);
+('Chemise Miami', '/img_vetements/chemise_miami.webp', 7.99, 'Chemise', 'L', 7),
+('Chemise Miami', '/img_vetements/chemise_miami.webp', 7.99, 'Chemise', 'M', 7);
 
 -- Les sweat :
 INSERT INTO vetements (nom, chemin, prix, type_vetement, taille, stock) VALUES

@@ -213,7 +213,7 @@ main .corps h1 {
     font-size: 7rem;
 }
 /* Styles pour la grille */
-main .grid {
+main .organes {
 	width: 50%;
     background-color: green;
     display: inline-flex;
@@ -223,16 +223,19 @@ main .grid {
 }
 
 /* Styles pour les éléments de la grille */
-main .grid-item {
-	padding: 20px;
+main .card {
+	width: 200px;
+    height: 250px;
+    padding: 20px;
 	margin: 40px;
 	background-color: blue;
     text-align: center;
     border: 1px solid black;
 }
-
-main .grid-item img {
-    width: 200px;
-    height: 250px;
-    object-fit: cover; /* Ajuste l'image pour qu'elle couvre le conteneur tout en conservant le rapport hauteur / largeur */
-} 
+main .card div img {
+	max-height: 100%;
+	max-width: 100%;
+}
+main .card p {
+	color: var(--jaune);
+}
