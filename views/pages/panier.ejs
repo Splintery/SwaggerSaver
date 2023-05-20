@@ -3,80 +3,6 @@
 
 <head>
 	<title>Mon panier</title>
-	<style>
-		body {
-			display: flex;
-			flex-direction: row;
-			margin: 0;
-			padding: 0;
-			font-family: Arial, sans-serif;
-			font-size: 16px;
-			color: #333;
-		}
-
-		#left-side {
-			flex: 2;
-			background-color: #f1f1f1;
-			padding: 20px;
-		}
-
-		#right-side {
-			flex: 1;
-			background-color: #ddd;
-			padding: 20px;
-			text-align: center;
-		}
-
-		table {
-			width: 100%;
-			border-collapse: collapse;
-			margin-bottom: 20px;
-		}
-
-		th,
-		td {
-			padding: 10px;
-			text-align: left;
-			border-bottom: 1px solid #ddd;
-		}
-
-		th {
-			background-color: #ccc;
-		}
-
-		tr:nth-child(even) {
-			background-color: #f2f2f2;
-		}
-
-		#total-price {
-			font-size: 24px;
-			font-weight: bold;
-			margin-top: 20px;
-		}
-
-		#reset {
-			background-color: #333;
-			color: #fff;
-			padding: 10px 20px;
-			border: none;
-			border-radius: 5px;
-			font-size: 16px;
-			cursor: pointer;
-			margin-top: 20px;
-		}
-
-		#valide {
-			background-color: #4CAF50;
-			color: #fff;
-			padding: 10px 20px;
-			border: none;
-			border-radius: 5px;
-			font-size: 16px;
-			cursor: pointer;
-			margin-top: 20px;
-		}
-	</style>
-
 	<link href="/public/css/style.css" rel="stylesheet" type="text/css">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -86,8 +12,7 @@
 	<%- include('../partials/header', categories, total)%>
 </header>
 
-
-<body>
+<div id="pan">
 	<div id="left-side">
 		<h1>Mon panier</h1>
 		<table>
@@ -125,7 +50,7 @@
 		<h2>Total</h2>
 		<div id="total-price">
 			<h1>
-				<%= total %>
+				<%= total %> €
 			</h1>
 		</div>
 		<form method="post" action="">
@@ -145,7 +70,7 @@
 			<button id="valide" type="submit">Valider</button>
 		</form>
 	</div>
-</body>
+</div>
 
 <footer>
 	<%- include('../partials/footer');%>
