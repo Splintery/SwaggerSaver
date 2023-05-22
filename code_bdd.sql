@@ -24,6 +24,13 @@ CREATE TABLE panier (
     FOREIGN KEY (id_vetement) REFERENCES vetements(id)
 );
 
+CREATE TABLE combinaison (
+    nom_combinaison VARCHAR(50),
+    id INTEGER,
+    prix_c DECIMAL(10,2),
+    FOREIGN KEY (id) REFERENCES vetements(id)
+);
+
 INSERT INTO categorie VALUES 
 ('Chemise'),
 ('Veste'),
@@ -96,6 +103,14 @@ INSERT INTO vetements (nom, chemin, prix, type_vetement, taille, stock) VALUES
 ('Jeans ample', '/img_vetements/jeans_ample.webp', 29.99, 'Jeans', 'XS', 90),
 ('Jeans Denim', '/img_vetements/Jeans_denim.webp', 29.99, 'Jeans', 'S', 32);
 
+-- Les Combinaisons :
+INSERT INTO combinaison (nom, id, prix) VALUES
+('Combinaison classique 1', 17, 39.99),
+('Combinaison classique 1', 27, 39.99),
+('Combinaison classique 1', 13, 39.99),
+('Combinaison business 1', 41, 59.99),
+('Combinaison business 1', 4, 59.99),
+('Combinaison business 1', 22, 59.99);
 
 
 -- INSERT INTO panier (id_vetement) VALUES 
