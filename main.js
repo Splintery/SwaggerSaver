@@ -7,16 +7,29 @@ server.use('/public', express.static('public'));
 const bdd = require('./bdd');
 let categories = [];
 let vetement_welcome = [];
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+function getFrontPageRandom(list) {
+    var chosenIndexes = [];
+    var res = [];
+    var i = 0;
+    while (res.length < 5) {
+        i = getRandomInt(list.length);
+        if (!chosenIndexes.includes(i)) {
+            res.push(list[i]);
+        }
+    }
+    return res;
+}
 async function run(){
     await bdd.connect();
     
     
     categories = await bdd.list_categories();
-    //vetement_welcome = await bdd.allLinks();
-    vetements = await bdd.getAll();
 
-    // await bdd.clear();
-    // await bdd.disconnect();
+    all_vetements = await bdd.getAll();
+    vetements = getFrontPageRandom(all_vetements);
 }
 
 run();

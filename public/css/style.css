@@ -1,6 +1,7 @@
 :root {
 	--noir: #000000;
 	--bleu: #14213D;
+	--bleuClair: #101B33;
 	--blanc: #FFFFFF;
 	--jaune: #FCA311;
 	--blanc-gris: #E5E5E5;
@@ -127,6 +128,7 @@ header nav .title-img {
 	height: 100px;
 }
 header nav .basket-container {
+	z-index: 10;
 	background-color: var(--bleu);
 	border-bottom-left-radius: 30px;
 	position: absolute;
@@ -138,9 +140,43 @@ header nav .basket-container a {
 	width: 50px;
 	height: 50px;
 }
+header nav .price-container {
+	z-index: 9;
+	background-color: var(--bleuClair);
+	border-bottom-left-radius: 30px;
+	position: absolute;
+	width: 200px;
+	height: 70%;
+	right: 0px;
+	top: 0px;
+	transition: right 1s ease 5s;
+/*	transition: top 1s ease 5s;*/
+}
+header nav .basket-container:hover + .price-container {
+	right: 200px;
+	transition-delay: 0s;
+}
+
+header nav .price-container p {
+	color: var(--blanc);
+	font-family: var(--font);
+	font-size: 100%;
+	font-weight: bold;
+}
 @media (max-width: 1000px) {
 	header nav .title-container {
 		width: 280px;
+	}
+	header nav .price-container {
+		right: auto;
+		top: 100%;
+		border-bottom-left-radius: 30px;
+		border-bottom-right-radius: 30px;
+		height: 50px;
+		width: 200px;
+	}
+	header nav .basket-container:hover + .price-container {
+		right: auto;
 	}
 }
 @media (max-width: 650px) {
@@ -148,11 +184,19 @@ header nav .basket-container a {
 	header nav .list-button-container {
 		width: 70px;
 	}
+	header nav .list-container {
+		width: 50%;
+	}
 	header nav .basket-container {
 		width: 70px;
 	}
-	header nav .list-container {
-		width: 50%;
+	header nav .price-container {
+		right: auto;
+		top: 100%;
+		border-bottom-left-radius: 30px;
+		border-bottom-right-radius: 30px;
+		height: 50px;
+		width: 30%;
 	}
 }
 
@@ -286,10 +330,6 @@ main .card p {
 	font-weight: bold;
 	font-size: 2rem;
 	-webkit-text-stroke: 1px var(--blanc);
-}
-
-#prixTotal {
-	color : var(--jaune);
 }
 
 /* Page panier  */

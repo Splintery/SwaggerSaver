@@ -28,15 +28,18 @@
                 <%- include("icons/logo-white.svg")%> 
             </div>          
         </a>
-
-        <h1 id="prixTotal">Total : <%= total %></h1>
-
     </div>
     <div class="basket-container">
         <a href="/swagger/panier">
             <%- include("icons/basket_icon.svg") %>
         </a>
     </div>
+    <div class="price-container">
+        <p id="prixTotal">
+            Total : <%= total %>
+        </p>
+    </div>
+    
     
     <script>
         var panelOpened = false;
