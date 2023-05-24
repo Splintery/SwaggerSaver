@@ -70,7 +70,8 @@ server.get('/', (req, res) => {
 // use res.render to load up an ejs view file
 server.get('/swagger', async (req, res, next) => {
     const total = await totalP();
-    res.render('pages/accueil', {categories : categories, vetements : vetements, total : total});
+    const searchBar = await bdd.getAllDistinct();
+    res.render('pages/accueil', {categories : categories, vetements : vetements, total : total, search : searchBar});
 });
 
 server.post('/swagger', async (req, res, next) => {
@@ -78,7 +79,8 @@ server.post('/swagger', async (req, res, next) => {
     ajoutP(id_v);
     await bdd.remStock(id_v);
     const total = await totalP();
-    res.render('pages/accueil', {categories : categories, vetements : vetements, total : total});
+    const searchBar = await bdd.getAllDistinct();
+    res.render('pages/accueil', {categories : categories, vetements : vetements, total : total, search : searchBar});
 });
 
 server.get('/swagger/body/:vetement', async (req, res) =>{
@@ -86,7 +88,8 @@ server.get('/swagger/body/:vetement', async (req, res) =>{
     if(categories.includes(vet)){
         const items = await bdd.categorie(vet);
         const total = await totalP();
-        res.render('pages/vetement', {categories : categories, type_vet : vet, items : items, total : total});
+        const searchBar = await bdd.getAllDistinct();
+        res.render('pages/vetement', {categories : categories, type_vet : vet, items : items, total : total, search : searchBar});
     }else{
         console.log("body de " + vet + " existe pas");
     }
@@ -99,7 +102,8 @@ server.post('/swagger/body/:vetement', async (req, res) => {
     ajoutP(vetementId);
     await bdd.remStock(vetementId);
     const total = await totalP();
-    res.render('pages/vetement', {categories : categories, type_vet : vet, items : items, total});
+    const searchBar = await bdd.getAllDistinct();
+    res.render('pages/vetement', {categories : categories, type_vet : vet, items : items, total : total, search : searchBar});
 });
 
 
@@ -114,7 +118,8 @@ server.get('/swagger/panier', async (req, res) =>{
         p.push(tmp);
     }
     const total = await totalP();
-    res.render('pages/panier', {vetements : p, categories : categories, total : total, basketContent : basketContent});
+    const searchBar = await bdd.getAllDistinct();
+    res.render('pages/panier', {vetements : p, categories : categories, total : total, basketContent : basketContent, search : searchBar});
 });
 
 server.post('/swagger/panier', async (req, res) =>{
@@ -132,7 +137,8 @@ server.post('/swagger/panier', async (req, res) =>{
     }
     const total = await totalP();
     const basketContent = await bdd.getPanier();
-    res.render('pages/panier', {vetements : p, categories : categories, total : total, basketContent : basketContent});
+    const searchBar = await bdd.getAllDistinct();
+    res.render('pages/panier', {vetements : p, categories : categories, total : total, basketContent : basketContent, search : searchBar});
 });
 
 server.get('/swagger/admin', async (req,res) =>{

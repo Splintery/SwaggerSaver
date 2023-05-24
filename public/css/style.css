@@ -1,7 +1,7 @@
 :root {
 	--noir: #000000;
 	--bleu: #14213D;
-	--bleuClair: #101B33;
+	--bleuSombre: #101B33;
 	--blanc: #FFFFFF;
 	--jaune: #FCA311;
 	--blanc-gris: #E5E5E5;
@@ -82,12 +82,51 @@ header nav .list-button-container {
 	border-bottom-right-radius: 30px;
 	z-index: 9999;
 }
+header nav #search-bar {
+	resize: none;
+	height: 40%;
+	width: 90%;
+	text-align: center;
+	font-family: var(--font);
+	font-weight: bold;
+	font-size: 24px;
+	color: var(--noir);
+}
+header nav .search-bar-container {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	left: 200px;
+	background-color: var(--bleuSombre);
+	border-bottom-right-radius: 30px;
+	z-index: 9999;
+	width: 300px;
+	height: 70%;
+}
+header nav .search-result-container {
+	position: fixed;
+	display: none;
+	z-index: 9998;
+	width: 30%;
+	background-color: var(--blanc-gris);
+/*	height: auto;*/
+	padding-top: 150px;
+	left: 0px;
+}
+header nav .search-result-container ul li {
+	color: var(--bleuSombre);
+	font-family: var(--font);
+	font-weight: bold;
+	font-size: 24px;
+}
+
 header nav .list-container {
 	display: fixed;
 	left: -50%;
 	position: fixed;
 	z-index: 9998;
-	width: 25%;
+	width: 30%;
 	background-color: var(--jaune);
 	transition: left 1s .5s ease;
 }
@@ -142,7 +181,7 @@ header nav .basket-container a {
 }
 header nav .price-container {
 	z-index: 9;
-	background-color: var(--bleuClair);
+	background-color: var(--bleuSombre);
 	border-bottom-left-radius: 30px;
 	position: absolute;
 	width: 200px;

@@ -38,6 +38,15 @@ function bdd(){
             return null;
         }
     }
+    this.getAllDistinct = async function() {
+        try {
+            const result = await client.query("SELECT DISTINCT nom FROM vetements");
+            return result.rows.map(row => row.nom);
+        } catch (error) {
+            console.error("Eroor distinct all", error);
+            return null;
+        }
+    }
 
     this.prefixe = async function(prefixe){
         try {

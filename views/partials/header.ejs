@@ -9,6 +9,13 @@
             </div>
         </button>
     </div>
+    <div class="search-bar-container">
+        <textarea id="search-bar" rows="1"name="search" maxlength="18" minlength="0"></textarea>
+    </div>
+    <div class="search-result-container" id="parent-search-ul">
+        <ul id="search-ul">
+        </ul>
+    </div>
     <div class="list-container" id="categories">
         <ul>
             <%
@@ -46,13 +53,13 @@
         var openImg = document.getElementById("open-list-button-img");
         var closeImg = document.getElementById("close-list-button-img");
         var list = document.getElementById("categories");
-        var size = 25;
+        var size = 30;
         document.getElementById("list-button").addEventListener("mousedown",
         function() {
             if (window.innerWidth < 750) {
                 size = 50;
             } else {
-                size = 25;
+                size = 30;
             }
             if (panelOpened) {
                 list.style.left = "-" + 50 + "%";         
@@ -66,6 +73,35 @@
                 openImg.style.display = "none";
                 closeImg.style.display = "flex";
             }
+        });
+        var searchList = [];
+        <%
+        for (var i = 0; i < search.length; i++) {
+            %>searchList.push("<%= search[i] %>");<%
+        }
+        %>
+        function removeAll() {
+            var myList = document.getElementById("search-ul");
+            myList.innerHTML = '';
+        }
+        var listSearch = document.getElementById("search-ul");
+        var parentList = document.getElementById("parent-search-ul");
+        var textarea = document.getElementById("search-bar");
+        textarea.addEventListener("input", function() {
+            if (textarea.value == "") {
+                parentList.style.display = "none";
+                console.log("Heyyy");
+            } else {
+                parentList.style.display = "block";
+            }
+            removeAll();
+            for (var i = 0; i < searchList.length; i++) {
+                if (searchList[i].includes(textarea.value) && textarea.value != "") {
+                    var newElement = document.createElement("LI");
+                    newElement.innerHTML = searchList[i];
+                    listSearch.appendChild(newElement);
+                }
+            }            
         });
     </script>
 
