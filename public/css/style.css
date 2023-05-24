@@ -217,11 +217,17 @@ header nav .price-container p {
 	header nav .basket-container:hover + .price-container {
 		right: auto;
 	}
+	header nav .search-bar-container {
+		display: none;
+	}
 }
 @media (max-width: 650px) {
 
 	header nav .list-button-container {
 		width: 70px;
+	}
+	header nav .search-bar-container {
+		display: none;
 	}
 	header nav .list-container {
 		width: 50%;
