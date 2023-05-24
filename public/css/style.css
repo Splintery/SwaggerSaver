@@ -246,13 +246,11 @@ main .container .sub img {
 main .corps {
 	width: 100%;
 	height: 100%;
-/*	background-color: blueviolet;*/
 	display: flex;
 	align-items: center;
 	flex-direction: column;
 }
 main .corps h1 {
-/*	background-color: red;*/
     text-align: center;
     color: var(--jaune);
     font-size: 7rem;
@@ -260,7 +258,6 @@ main .corps h1 {
 /* Styles pour la grille */
 main .organes {
 	width: 70%;
-/*    background-color: green;*/
     display: inline-flex;
 	flex-wrap: wrap;
     justify-content: center;
@@ -274,9 +271,9 @@ main .card {
 	width: auto;
     height: 70%;
     margin: 20px;
-/*	background-color: blue;*/
     text-align: center;
 	border-radius: 10px;
+	border-top: solid 0px;
 	border-bottom: solid 15px var(--blanc-gris);
 }
 main .card div img {
@@ -290,18 +287,19 @@ main .card #clothe-name {
 	background-color: var(--blanc);
 	border-radius: 10px;
 	position: absolute;
-	left: 0;
-	top: 0;
+	left: 0px;
+	top: 20px;
 }
 main .card #clothe-price {
 	color: var(--bleu);
 	position: absolute;
-	right: 0;
+	right: 10px;
 	bottom: 20px;
+	-webkit-text-stroke: 1px var(--blanc);
 }
 main .card .clothe-size {
 	position: absolute;
-	left: 0;
+	left: 10px;
 	bottom: 0;
 	background-color: var(--blanc);
 	border: 2px solid var(--bleu);
@@ -313,7 +311,7 @@ main .card .clothe-size {
 }
 main .card .clothe-buy {
 	position: absolute;
-	right: 0;
+	right: 10px;
 	bottom: 0;
 	background-color: var(--bleu);
 	width: 120px;
@@ -329,7 +327,6 @@ main .card p {
 	font-family: var(--font);
 	font-weight: bold;
 	font-size: 2rem;
-	-webkit-text-stroke: 1px var(--blanc);
 }
 
 /* Page panier  */
@@ -406,4 +403,12 @@ tr:nth-child(even) {
 	font-size: 16px;
 	cursor: pointer;
 	margin-top: 20px;
+}
+#basket-remove-button {
+	border-radius: 5px;
+	background-color: #b50c00;
+	color: var(--blanc);
+	font-family: var(--font);
+	font-weight: bold;
+	font-size: 18px;
 }

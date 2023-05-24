@@ -1,20 +1,20 @@
 function bdd(){
 
     const pg = require('pg');
-    const pool = new pg.Pool({
-        user: 'francois',
-        host: 'localhost',
-        database: 'bdd',
-        password: '123456',
-        port: 5432
-    });
     // const pool = new pg.Pool({
-    //     user: 'postgres',
+    //     user: 'francois',
     //     host: 'localhost',
     //     database: 'bdd',
-    //     password: '1234',
+    //     password: '123456',
     //     port: 5432
     // });
+    const pool = new pg.Pool({
+        user: 'postgres',
+        host: 'localhost',
+        database: 'bdd',
+        password: '1234',
+        port: 5432
+    });
 
     let client;
 
@@ -172,7 +172,7 @@ function bdd(){
 
     this.remP = async function(id){
         try{
-            const result = await client.query('DELETE FROM panier WHERE id_vetement = $1',[id]);
+            const result = await client.query('DELETE FROM panier WHERE id = $1',[id]);
             return true;
         } catch(error){
             console.error('Error while remove item:',error);
@@ -196,6 +196,16 @@ function bdd(){
             return result.rows.map(row => row.id_vetement);
         } catch(error){
             console.error('Error while panier');
+            return null;
+        }
+    }
+
+    this.getPanier = async function(){
+        try{
+            const result = await client.query('SELECT id FROM panier');
+            return result.rows.map(row => row.id);
+        } catch(error){
+            console.error('Error while panier acces');
             return null;
         }
     }

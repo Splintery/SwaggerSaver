@@ -21,28 +21,43 @@
 					<th>Nom</th>
 					<th>Taille</th>
 					<th>Prix unitaire</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
-				<% var total=0; %>
-					<% for (var i=0; i < vetements.length; i++) { %>
-						<% total +=parseFloat(vetements[i].prix) %>
-							<tr>
-								<td>
-									<%= vetements[i].nom %>
-								</td>
-								<td>
-									<%= vetements[i].taille %>
-								</td>
-								<td>
-									<%= vetements[i].prix %> €
-								</td>
-							</tr>
-							<% } %>
+				<% //var total=0;
+						for (var i=0; i < vetements.length; i++) {
+							if (vetements[i] != null) {
+							//total +=parseFloat(vetements[i].prix) %>
+
+								<tr>
+									<td>
+										<%= vetements[i].nom %>
+									</td>
+									<td>
+										<%= vetements[i].taille %>
+									</td>
+									<td>
+										<%= vetements[i].prix %> €
+									</td>
+									<td>
+										<form method="post" action="">
+											<input type="hidden" name="remove"
+											value="<%=basketContent[i]%>">
+											<button id="basket-remove-button"
+											type="submit">
+											supprimer
+											</button>
+										</form>
+									</td>
+								</tr>
+							<%
+							}	
+						}%>
 			</tbody>
 		</table>
 		<form method="post" action="">
-			<input type="hidden" name="remove" value=1>
+			<input type="hidden" name="remove" value=-1>
 			<button id="reset" type="submit">Retirer</button>
 		</form>
 	</div>

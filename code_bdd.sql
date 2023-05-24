@@ -1,6 +1,6 @@
-drop table if exists panier;
-drop table if exists vetements;
-drop table if exists categorie;
+drop table if exists panier CASCADE;
+drop table if exists vetements CASCADE;
+drop table if exists categorie CASCADE;
 
 
 CREATE TABLE categorie (
@@ -20,16 +20,17 @@ FOREIGN KEY (type_vetement) REFERENCES categorie(cat)
 );
 
 CREATE TABLE panier (
+    id SERIAL PRIMARY KEY NOT NULL,
     id_vetement INTEGER,
     FOREIGN KEY (id_vetement) REFERENCES vetements(id)
 );
 
-CREATE TABLE combinaison (
-    nom_combinaison VARCHAR(50),
-    id INTEGER,
-    prix_c DECIMAL(10,2),
-    FOREIGN KEY (id) REFERENCES vetements(id)
-);
+-- CREATE TABLE combinaison (
+--     nom_combinaison VARCHAR(50),
+--     id INTEGER,
+--     prix_c DECIMAL(10,2),
+--     FOREIGN KEY (id) REFERENCES vetements(id)
+-- );
 
 INSERT INTO categorie VALUES 
 ('Chemise'),
@@ -54,7 +55,7 @@ INSERT INTO vetements (nom, chemin, prix, type_vetement, taille, stock) VALUES
 
 -- Les sweat :
 INSERT INTO vetements (nom, chemin, prix, type_vetement, taille, stock) VALUES
-('sweat alva', '/img_vetements/sweat_alva.webp', 5.99, 'Sweat', 'M', 3),
+('sweat alva', '/img_vetements/sweat_alva.webp', 5.99, 'Sweat', 'M', 69),
 ('sweat quartier', '/img_vetements/sweat_quartier.jpeg', 14.99, 'Sweat', 'L', 7),
 ('sweat sidestripe', '/img_vetements/sweat_sidestripe.jpeg', 24.99, 'Sweat', 'M', 27);
 
@@ -104,15 +105,10 @@ INSERT INTO vetements (nom, chemin, prix, type_vetement, taille, stock) VALUES
 ('Jeans Denim', '/img_vetements/Jeans_denim.webp', 29.99, 'Jeans', 'S', 32);
 
 -- Les Combinaisons :
-INSERT INTO combinaison (nom, id, prix) VALUES
-('Combinaison classique 1', 17, 39.99),
-('Combinaison classique 1', 27, 39.99),
-('Combinaison classique 1', 13, 39.99),
-('Combinaison business 1', 41, 59.99),
-('Combinaison business 1', 4, 59.99),
-('Combinaison business 1', 22, 59.99);
-
-
--- INSERT INTO panier (id_vetement) VALUES 
--- (1),
--- (4);
+-- INSERT INTO combinaison (nom, id, prix) VALUES
+-- ('Combinaison classique 1', 17, 39.99),
+-- ('Combinaison classique 1', 27, 39.99),
+-- ('Combinaison classique 1', 13, 39.99),
+-- ('Combinaison business 1', 41, 59.99),
+-- ('Combinaison business 1', 4, 59.99),
+-- ('Combinaison business 1', 22, 59.99);

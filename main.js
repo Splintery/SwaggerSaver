@@ -69,9 +69,7 @@ server.get('/', (req, res) => {
 
 // use res.render to load up an ejs view file
 server.get('/swagger', async (req, res, next) => {
-    console.log("viewing page !");
     const total = await totalP();
-    console.log(total);
     res.render('pages/accueil', {categories : categories, vetements : vetements, total : total});
 });
 
@@ -98,8 +96,6 @@ server.post('/swagger/body/:vetement', async (req, res) => {
     const vet = req.params.vetement;
     const items = await bdd.categorie(vet);
     const vetementId = req.body.vetement_id;
-    console.log("test");
-    console.log(vetementId);
     ajoutP(vetementId);
     await bdd.remStock(vetementId);
     const total = await totalP();
@@ -109,6 +105,8 @@ server.post('/swagger/body/:vetement', async (req, res) => {
 
 server.get('/swagger/panier', async (req, res) =>{
     const vet = await bdd.panier();
+    const basketContent = await bdd.getPanier();
+
     const p = [];
     var tmp;
     for(var i=0; i<vet.length; i++){
@@ -116,11 +114,15 @@ server.get('/swagger/panier', async (req, res) =>{
         p.push(tmp);
     }
     const total = await totalP();
-    res.render('pages/panier', {vetements : p, categories : categories, total});
+    res.render('pages/panier', {vetements : p, categories : categories, total : total, basketContent : basketContent});
 });
 
 server.post('/swagger/panier', async (req, res) =>{
-    if(req.body.remove == 1) await bdd.clear();
+    if(req.body.remove == -1) {
+        await bdd.clear();
+    } else {
+        await bdd.remP(req.body.remove);
+    }
     const vet = await bdd.panier();
     const p = [];
     var tmp;
@@ -129,7 +131,8 @@ server.post('/swagger/panier', async (req, res) =>{
         p.push(tmp);
     }
     const total = await totalP();
-    res.render('pages/panier', {vetements : p, categories : categories, total});
+    const basketContent = await bdd.getPanier();
+    res.render('pages/panier', {vetements : p, categories : categories, total : total, basketContent : basketContent});
 });
 
 server.get('/swagger/admin', async (req,res) =>{
